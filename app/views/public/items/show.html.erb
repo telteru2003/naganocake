@@ -1,0 +1,18 @@
+
+  	<%= render "public/shared/sidebar", genres: @genres %>
+
+<%= image_tag @item.get_image, size: "340x220", fallback: "no_image.jpg" %>
+<h3><%= @item.name %></h3>
+<p><%= @item.introduction %></p>
+
+<% if @item.is_sold == true %>
+  <h4>¥<%= @item.with_tax_price %></h4>
+  <p>(税込)</p>
+  <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
+    <%= f.hidden_field :item_id, value: @item.id %>
+    <%= f.select :amount, (1..10).to_a, include_blank: "個数選択" %>
+    <%= f.submit "カートに入れる", class: "btn btn-success" %>
+  <% end %>
+<% else %>
+  <h4>売り切れ</h4>
+<% end %>

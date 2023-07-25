@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <style>
+    .circle-btn {
+        background-color: white;
+        border: solid 3px white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+ 	      box-shadow: 0 2px 3px rgba(0, 1, 1, 1);
+        text-align: center;
+        padding: 5px;
+        display: inline-block;
+        border: 2px solid #ccc;
+        line-height: 15px;
+        margin: 0 auto;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+    }
+  </style>
+</head>
+
+<% provide(:title, "商品") %>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 px-sm-0 offset-sm-1">
+            <h2 class="my-5">商品一覧</h2>
+        </div>
+        <div class="col-sm-2 px-sm-0 text-right mt-5">
+            <%= link_to new_admin_item_path, class: "btn btn-outline-secondary circle-btn" do %>
+            ＋
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+    　<div class="col-sm-10 offset-1">
+
+     <table class="table  mb-5">
+        <thread>
+            <tr>
+             <th>商品ID</th>
+             <th>商品名</th>
+             <th>税抜価格</th>
+             <th>ジャンル</th>
+             <th>ステータス</th>
+            </tr>
+         </thread>
+        <tbody>
+
+         <% @items.each do |item| %>
+         <tr>
+          <td><%= item.id %></td>
+          <td><%= link_to item.name,admin_item_path(item.id) %></td>
+          <td><%= item.price %></td>
+          <td><%= item.genre.name %></td>
+          <td>
+            <% if item.is_sold == true %>
+              <p class="text-success ">販売中</p>
+             <% else %>
+              <p class="text-secondary ">販売停止中</p>
+            <% end %>
+          </td>
+         </tr>
+            <% end %>
+
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div>

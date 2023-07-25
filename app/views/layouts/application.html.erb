@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div id="wrapper">
+
+    <%= render "layouts/header"%>
+    <main>
+    <% if admin_signed_in?%>
+      <%= render "layouts/search"%>
+    <% end %>
+      <div class="container">
+      <div id="flash">
+        <%= render "layouts/flash" %>
+      </div>
+      <%= yield %>
+    </main>
+    <%= render "layouts/footer"%>
+
+    </div>
+  </body>
+</html>
