@@ -5,9 +5,9 @@
     <div class="col-xs-12">
       <table class="table table-borderless">
          <thead>
-            <tr><th>購入者</th><td><%= full_name(@order.customer) %></td></tr>
+            <tr><th>購入者</th><td><%= @order.customer.full_name %></td></tr>
             <tr><th>注文日</th><td><%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
-            <tr><th>配送先</th><td>〒<%= full_address(@order)%></td></tr>
+            <tr><th>配送先</th><td>〒<%= "#{@order.postal_code} #{@order.address} 　#{@order.name}" %></td></tr>
             <tr><th>支払方法</th><td><%= @order.payment_method %></td></tr>
             <tr>
              <th>注文ステータス</th>
@@ -35,14 +35,14 @@
           </tr>
         </thead>
         <tbody>
-          <% @order.order_details.each do |order_detail|%>
+          <% @order_details.each do |order_detail|%>
             <tr>
-              <td><p><%= order_detail.item.name%></p></td>
-              <td><p><%= order_detail.item.tax_in_price %></p></td>
-              <td><p><%= order_detail.count%></p></td>
-              <td><p><%= sub_price(order_detail)%></p></td>
+              <td><p><%= order_detail.item.name %></p></td>
+              <td><p><%= order_detail.item.with_tax_price.to_s(:delimited) %></p></td>
+              <td><p><%= order_detail.amount %></p></td>
+              <td><p><%= (order_detail.item.with_tax_price * order_detail.amount).to_s(:delimited) %></p></td>
               <td>
-                <%= form_with(model: order_detail, url: admin_order_details_path(order_detail.id),method: :patch, local: true) do |f|%>
+                <%= form_with(model: order_detail, url: admin_order_details_path(order_detail.id), method: :patch, local: true) do |f|%>
                 <%= f.select :making_status, OrderDetail.making_statuses.keys, class:"making_status"%>
                 <%= f.submit "更新", class:"btn btn-success"%>
                 <% end %>
@@ -54,16 +54,16 @@
       <div class="col-xs-3 off-set-1">
       <table class="table">
           <tr>
+            <th>商品合計</th>
+            <td class="text-right col-xs-5">¥<%= @order.total_payment - @order.shipping_cost %></td>
+          </tr>
+          <tr>
             <th>送料</th>
             <td class="text-right col-xs-5">¥<%= @order.shipping_cost %></td>
           </tr>
           <tr>
-            <th>商品合計</th>
-            <td class="text-right col-xs-5">¥<%= total_price(@order.order_details)%></td>
-          </tr>
-          <tr>
             <th>請求金額</th>
-            <td class="text-right col-xs-5">¥<%= total_price(@order.order_details) + @order.shipping_cost%></td>
+            <td class="text-right col-xs-5">¥<%= @order.total_payment %></td>
           </tr>
           <tr>
             <th></th>

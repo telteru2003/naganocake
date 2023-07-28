@@ -20,7 +20,7 @@
         <div class="card-body">
           <p class="item-details item-name card-text"><%= item.name %></p>
           <% if item.is_sold == true %>
-            <p class="item-details card-text">¥<%= item.with_tax_price %></p>
+            <p class="item-details card-text">¥<%= item.with_tax_price.to_s(:delimited) %></p>
           <% else %>
             <p class="text-danger font-weight-bold card-text">売り切れ</p>
         <% end %>

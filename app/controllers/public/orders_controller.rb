@@ -23,7 +23,7 @@ class Public::OrdersController < ApplicationController
     @total = 0
 
     @order = Order.new(
-      customer: current_customer,
+      customer_id: current_customer.id,
       payment_method: params[:order][:payment_method])
 
     # my_addressに1が入っていれば（自宅）
@@ -44,10 +44,9 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
-      @ship = "1"
 
     # 有効かどうかの確認
-      unless @order.valid? == true
+      unless @order.present?
         @addresses = Address.where(customer: current_customer)
         render :new
       end
@@ -67,18 +66,18 @@ class Public::OrdersController < ApplicationController
 
        # カート商品の情報を注文履歴に移動させる
     @cart_items = current_customer.cart_items
-    @cart_items.each do |cart_item|
-      @order_detail = OrderDetail.new
-      @order_detail.item_id = cart_item.item_id
-      @order_detail.order_id = @order.id
-      @order_detail.amount = cart_item.amount
-      @order_detail.price = cart_item.item.price * cart_item.amount
+    @cart_items.each do |cart_item| #カートの商品を1つずつ取り出しループ
+      @order_detail = OrderDetail.new #初期化宣言
+      @order_detail.item_id = cart_item.item_id #商品idを注文商品idに代入
+      @order_detail.order_id = @order.id #注文商品に注文idを紐付け
+      @order_detail.amount = cart_item.amount #購入数を注文商品数に代入
+      @order_detail.price = (cart_item.item.price * 1.1).to_i #消費税込みに計算して代入
       @order_detail.save
-      end
+    end
     # 最後にカートを全て削除する
     @cart_items.destroy_all
 
-    redirect_to '/thanks'
+    redirect_to '/orders/thanks'
   end
 
   def thanks

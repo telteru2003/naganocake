@@ -17,13 +17,13 @@
       <th>
         <%= image_tag cart_item.item.get_image, size: "55x43" %>        <%= cart_item.item.name %>
       </th>
-      <th><%= cart_item.item.with_tax_price %></th>
+      <th><%= cart_item.item.with_tax_price.to_s(:delimited) %></th>
       <th>
         <%= form_with model:cart_item, url: cart_item_path(cart_item), method: :patch , remote: true do |f| %>
         <%= f.number_field :amount, size: 10, min: 1 %>
         <%= f.submit "変更", class: "btn btn-success" %>
       </th>
-      <th><%= cart_item.subtotal %></th>
+      <th><%= cart_item.subtotal.to_s(:delimited) %></th>
       <th>
         <%= link_to "削除する", cart_item_path(cart_item), method: :delete, remote: true, data: {confirm: "#{cart_item.item.name}を削除してよろしいですか？"}, class: "btn btn-danger" %>
       </th>
