@@ -1,34 +1,44 @@
-
-  	<%= render "public/shared/sidebar", genres: @genres %>
-
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 px-sm-0">
-      <h1>商品一覧</h1><h4>(全<%= @total_items.count %>件)</h4>
-    </div>
-  </div>
-  <div class="row mt-3 mb-3 text-center text-xs-center text-sm-center text-md-left">
 
-      <% @items.each do |item| %>
+<!-- ジャンル検索 -->
+  	<%= render "public/shared/sidebar", genres: @genres %>
+
+<!-- 商品一覧 -->
+    <div class="col-lg-1">
+    </div>
+
+    <div class="col-lg-9">
+
+  <% if params[:genre_id] %>
+    <h2><%= @genre.name %>の商品一覧(全<%= @all_items_count %>件)</h2>
+  <% else %>
+    <h2>商品一覧(全<%= @all_items_count %>件)</h2>
+	<% end %>
+
+    <div class="row">
+
+      <% @page_items.each do |item| %>
       <div class="col-xs-10 col-sm-10 col-md-6 col-lg-3">
        <div class="card w-100 bg-transparent border-0" style="width: 18rem;">
+
         <%= link_to item_path(item.id) do %>
-          <p class="img-wrap">
-            <%= image_tag item.get_image, size: "180x130" %>
-          </p>
-        <% end %>
+          <p class="img-wrap"><%= image_tag item.get_image, size: "180x130" %></p>
         <div class="card-body">
           <p class="item-details item-name card-text"><%= item.name %></p>
+        <% end %>
+
           <% if item.is_sold == true %>
             <p class="item-details card-text">¥<%= item.with_tax_price.to_s(:delimited) %></p>
           <% else %>
             <p class="text-danger font-weight-bold card-text">売り切れ</p>
-        <% end %>
+          <% end %>
+
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
       <% end %>
 
   </div>
-      <%= paginate(@items) %>
+      <%= paginate(@page_items) %>
 </div>

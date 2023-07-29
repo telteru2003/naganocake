@@ -22,23 +22,11 @@ class Admin::OrdersController < ApplicationController
         order_detail.update(making_status: 1)
       end
     end
-
   end
-
-  # def today_order_index
-  # end
-
-  # def current_index
-  # end
 
   private
 
   def order_params
     params.require(:order).permit(:shipping_cost, :total_payment, :name, :payment_method, :address, :postal_code, :status, :making_status)
   end
-
-  # def customer_params
-  #   params.require(:customer).permit(:)
-  # end
-
 end
