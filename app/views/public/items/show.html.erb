@@ -1,25 +1,30 @@
-<div class="container">
-  <div class="row">
-
 <!-- ジャンル検索 -->
-  	<%= render "public/shared/sidebar", genres: @genres %>
+<%= render "public/shared/sidebar", genres: @genres %>
 
-    <div class="col-lg-1">
+<div class="col-lg-1"></div>
+
+<div class="col-lg-4">
+  <%= image_tag @item.get_image, size: "340x220", fallback: "no_image.jpg" %>
+</div>
+
+<div class="col-lg-5">
+  <h3><%= @item.name %></h3>
+  <p><%= @item.introduction %></p>
+  <% if @item.is_sold == true %>
+  <h4>¥ <%= @item.with_tax_price.to_s(:delimited) %></h4> (税込)<br><br>
+
+  <div class="row">
+    <div class="col-md-4" class="d-flex align-items-center">
+      <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
+        <%= f.hidden_field :item_id, value: @item.id %>
+        <%= f.select :amount, (1..10).to_a, { include_blank: "個数選択" }, class: "form-control rounded-3" %>
     </div>
-    <div class="col-lg-9">
-      
-<%= image_tag @item.get_image, size: "340x220", fallback: "no_image.jpg" %>
-<h3><%= @item.name %></h3>
-<p><%= @item.introduction %></p>
+    <div class="col-md-6">
+        <%= f.submit "カートに入れる", class: "btn btn-success ml-2" %>
+      <% end %>
 
-<% if @item.is_sold == true %>
-  <h4>¥<%= @item.with_tax_price.to_s(:delimited) %></h4>
-  <p>(税込)</p>
-  <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
-    <%= f.hidden_field :item_id, value: @item.id %>
-    <%= f.select :amount, (1..10).to_a, include_blank: "個数選択" %>
-    <%= f.submit "カートに入れる", class: "btn btn-success" %>
+  <% else %>
+    <h4>売り切れ</h4>
   <% end %>
-<% else %>
-  <h4>売り切れ</h4>
-<% end %>
+    </div>
+  </div>

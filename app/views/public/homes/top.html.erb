@@ -1,25 +1,48 @@
+<style>
+  .image-container {
+    width: 100%; /* 画像コンテナの幅を100%に設定 */
+    height: 0; /* 高さを0に設定（この後にpaddingで確保）*/
+    padding-bottom: 100%; /* 高さを幅の100%にするためにpaddingを追加 */
+    position: relative; /* 画像の位置を設定 */
+    overflow: hidden; /* 画像の外側を隠す */
+  }
 
-    <div id="carouselExampleControls" class="carousel slide mx-auto" data-ride="carousel">
-        <div class="carousel-inner", style="text-align:center;">
-            <div class="carousel-item active">
-                <%= image_tag "top1.jpg", alt: "First slide", :size =>'500x400' %>
-            </div>
-            <div class="carousel-item">
-                <%= image_tag "top2.jpg", :size => "400x300", alt: "Second slide", :size =>'500x400' %>
-            </div>
-            <div class="carousel-item">
-                <%= image_tag "top3.jpg", alt: "Third slide", :size =>'500x400' %>
-            </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+  .image-container img {
+    position: absolute; /* 画像の位置を設定 */
+    top: 0; /* 上端に配置 */
+    left: 0; /* 左端に配置 */
+    width: 100%; /* 幅を100%に設定（コンテナに合わせて拡大・縮小） */
+    height: 100%; /* 高さを100%に設定（コンテナに合わせて拡大・縮小） */
+    object-fit: cover; /* 画像をコンテナにフィットさせる */
+  }
+</style>
+
+<!-- ジャンル検索 -->
+<%= render "public/shared/sidebar", genres: @genres %>
+
+<div class="col-lg-10">
+  <div id="carExampleControls" class="carousel slide mx-auto" data-ride="carousel">
+    <div class="carousel-inner", style="text-align:center;">
+      <div class="carousel-item active">
+        <%= image_tag "top1.jpg", alt: "First slide", :size =>'500x400' %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "top2.jpg", :size => "400x300", alt: "Second slide", :size =>'500x400' %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "top3.jpg", alt: "Third slide", :size =>'500x400' %>
+      </div>
     </div>
+    </div>
+
+  <a class="carousel-control-prev" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 
 
    <div class="container">
@@ -27,9 +50,8 @@
             <div class="col-xs-12 mx-auto">
                 <div class="text-center">
 
-
                     <p>
-                        <span>Welcome Naganocake</span><br>
+                        <span>ようこそ、ながのCAKEへ！</span><br>
                         このサイトは、ケーキ販売のECサイトになります。<br>
                         会員でない方も商品の閲覧はできますが、<br>
                         購入には会員登録が必要になります。<br>
@@ -39,32 +61,36 @@
         </div>
     </div>
 
-<div class="container new-item">
+<div class="container">
   <h2>新着商品</h2>
   <div class="row">
 
-
-      <% @items.first(4).each do |item| %>
-
-
-     <div class="col-md-3 col-sm-6">
+    <% @items.first(4).each do |item| %>
+      <div class="col-md-3">
         <div class="card w-100 bg-transparent border-0" style="width: 18rem;">
+          <div class="d-flex align-items-center">
+            <div class="image-container">
           <%= link_to item_path(item) do %>
-            <div class="img-wrap"><%= image_tag item.get_image, width: "100%", height: "200px", fallback: "no_image.jpg" %></div>
+            <%= image_tag item.get_image, width: "100%", height: "100", fallback: "no_image.jpg" %>
           <% end %>
+            </div>
+          </div>
           <div class="card-body">
             <p class="card-text"><%= item.name %></p>
+
             <% if item.is_sold == true %>
-              <p class="card-text"><%= item.price %>円(税抜き)</p>
+              <p class="card-text"><%= item.with_tax_price.to_s(:delimited) %>円</p>
             <% else %>
               <p class="card-text text-danger">販売停止中</p>
             <% end %>
+
           </div>
         </div>
      </div>
-
-
-      <% end %>
+    <% end %>
   </div>
-  <div class="all-items-show-button"><%= link_to "全ての商品をみる", items_path %></div>
+
+<div class="d-flex justify-content-end">
+  <%= link_to "全ての商品をみる　＞", items_path %>
+</div>
 </div>

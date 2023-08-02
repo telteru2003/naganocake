@@ -8,20 +8,23 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
-    @cart_item_check = CartItem.find_by(customer_id: current_customer.id, item_id: params[:cart_item][:item_id])
+    @cart_item = CartItem.new(cart_items_params)
+    @cart_item.customer_id = current_customer.id
+    @cart_item_check = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
+
     if @cart_item_check
       @cart_item_check.amount += params[:cart_item][:amount].to_i
       @cart_item_check.save
-      flash[:success] = "カートに存在済のアイテムです"
+      flash[:success] = "カートに追加しました"
       redirect_to cart_items_path
     else
       @cart_item = CartItem.new(cart_items_params)
       @cart_item.customer_id = current_customer.id
       if @cart_item.save
-        flash[:success] = "カートに追加しました"
+        flash[:success] = "カートに商品を入れました"
         redirect_to cart_items_path
       else
-        flash[:danger] = "予期せぬエラーが発生しました"
+        flash[:danger] = "個数を入力してください"
         redirect_back(fallback_location: root_path)
       end
     end
@@ -47,6 +50,7 @@ class Public::CartItemsController < ApplicationController
   end
 
   private
+
   def cart_items_params
     params.require(:cart_item).permit(:customer_id, :item_id, :amount)
   end

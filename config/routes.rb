@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'search/search'
-  end
-
     # admin
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: { # skip オプションを使用し不要なルーティングを削除
@@ -40,8 +36,9 @@ devise_for :customers,skip: [:passwords], controllers: { # skip オプション�
   get '/customers/contact' => 'public/customers#contact'
 
   scope module: :public do
-    resources :items,only: [:index,:show]
-    get 'search' => 'items#search'
+    resources :items,only: [:index, :show]
+    resources :search,only: [:search]
+  	get '/search'=>'search#search'
     # deviseと衝突してしまうので、オリジナルに変更
     get 'edit/customers' => 'customers#edit'
     patch 'update/customers' => 'customers#update'

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
       if resource_or_scope.is_a?(Admin)
         admin_orders_path
       else
-        customers_path
+        root_path
       end
     end
 
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys:[:email, :last_name, :first_name, :kana_last_name, :kana_first_name, :postal_code, :address, :telephone_number])
+      devise_parameter_sanitizer.permit(:sign_up, keys:[:email, :last_name, :first_name, :kana_last_name, :kana_first_name, :postal_code, :address, :phone_number])
       devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
     end
 end

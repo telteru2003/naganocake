@@ -1,31 +1,47 @@
-<div class="container my-5">
+<div class="container">
   <div class="row">
-    <div class="col">
-      <div class="col-6 offset-3">
+    <div class="col-lg-8 offset-2">
 
-      <h3>ログイン</h3>
-      
-        <h6 class="my-3">会員の方はこちらからログイン</h6>
+      <h3 style="padding: 10px; margin: 10px;">
+        <span style="background-color: #EEEEEE">　ログイン　</span>
+      </h3>
+
+<div class="container my-3">
+  <div class="row">
+    <div class="col-lg-10">
+
+      <h6 style="padding: 10px; margin: 10px;"><span style="background-color: #EEEEEE">　会員の方はこちらからログイン　</span></h6>
+
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field my-2">
-          <%= f.label :"メールアドレス" %><br />
-          <%= f.email_field :email, autofocus: true, placeholder:"例）nagano_cake@example.com", autocomplete: "email",class:"form-control" %>
-        </div>
-          <div class="field my-2">
-            <%= f.label :"パスワード" %><br />
-            <%= f.password_field :password, placeholder:"例）xxxxxx", autocomplete: "current-password",class:"form-control" %>
+          <div class="row my-3">
+            <div class="col-md-3">
+              <%= f.label :"メールアドレス" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.email_field :email, autofocus: true, placeholder:"例）nagano_cake@example.com", autocomplete: "email", class:"form-control" %>
+            </div>
           </div>
-          <div class="actions my-3 text-center">
-           
-            <%= f.submit "ログイン",class: "btn btn-primary"%>
+
+          <div class="row my-3">
+            <div class="col-md-3">
+            <%= f.label :"パスワード" %>
+            </div>
+            <div class="col-md-9">
+            <%= f.password_field :password, placeholder:"例）xxxxxx", autocomplete: "current-password", class:"form-control" %>
+            </div>
           </div>
-        <% end %>
-          <div>
-              <h6 class="text-center">会員登録がお済みでない⽅</h6>
-              <p class="text-center"><%= link_to "こちら", new_customer_registration_path %>からログインしてください。</p>
+
+          <div class="row my-3">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+              <%= f.submit "ログイン",class: "btn btn-primary"%>
+            </div>
           </div>
-      </div>
-      
+        <% end %><br>
+
+        <h6 style="padding: 10px; margin: 10px;"><span style="background-color: #EEEEEE">　会員登録がお済みでない⽅　</span></h6>
+        <p class="text-center"><%= link_to "こちら", new_customer_registration_path %>　から新規登録を行ってください。</p>
+
     </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <script src="https://kit.fontawesome.com/6c57885749.js" crossorigin="anonymous"></script>
   <head>
-    <title></title>
+  <title>ながのcake</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -14,15 +15,14 @@
 
     <%= render "layouts/header"%>
     <main>
-    <% if admin_signed_in?%>
-      <%= render "layouts/search"%>
-    <% end %>
-      <div class="container">
+
+    <div class="container">
       <div id="flash">
         <%= render "layouts/flash" %>
       </div>
       <%= yield %>
     </main>
+
     <%= render "layouts/footer"%>
 
     </div>

@@ -1,5 +1,4 @@
 class Public::ItemsController < ApplicationController
-before_action :ensure_enabled_product, only: [:show, :update]
 
   def index
     @genres = Genre.all
@@ -16,6 +15,7 @@ before_action :ensure_enabled_product, only: [:show, :update]
   def show
     @item = Item.find(params[:id])
     @genres = Genre.all
+    @cart_item = CartItem.new
   end
 
   private

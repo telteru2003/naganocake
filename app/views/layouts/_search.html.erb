@@ -1,8 +1,33 @@
-<%= form_with url: admin_search_path, method: :get, local: true do |f| %>
-  <div class="d-flex justify-content-end mt-3 mr-5">
-    <%= f.text_field :content, placeholder: "\uf002 Search", class: "fa" %>
-    <%= f.select :model, options_for_select({"Customer" => "customer","Item" => "item"})%>
-    <%= f.select :method, options_for_select({"前方一致" => "forward", "後方一致" => "backword", "部分一致" => "patial"})%>
-    <%= f.submit "検索", class:"btn btn-outline-secondary ml-2"%>
-  </div>
+
+<% if admin_signed_in? %>
+  <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
+    <div class="row d-flex justify-content-end mt-2 mr-3">
+      <div class="col-md-3 p-0">
+        <%= f.text_field :content, placeholder: "Search", class: "form-control" %>
+      </div>
+      <div class="col-md-3 p-0">
+        <%= f.select :model, options_for_select({"Customer" => "customer", "Item" => "item"}, selected: "customer"), {}, class: "form-control" %>
+      </div>
+      <div class="col-md-3 p-0">
+        <%= f.select :method, options_for_select({"前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}, selected: "forward"), {}, class: "form-control" %>
+      </div>
+      <div class="col-md-2 p-0">
+        <%= button_tag type: "submit", class: "btn btn-outline-secondary m-1" do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+  <%= form_with url: search_path, method: :get, local: true do |f| %>
+    <div class="d-flex justify-content-end mt-2 mr-3" >
+      <%= f.text_field :content, placeholder: "商品検索", class:"form-control" %>
+      <%= f.select :method, options_for_select({"前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}, selected: "forward"), {}, class: "form-control form-select rounded-pill" %>
+      <%= button_tag type: "submit", class:"btn btn-outline-secondary m1-2" do %>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      <% end %>
+    </div>
+  <% end %>
+
 <% end %>

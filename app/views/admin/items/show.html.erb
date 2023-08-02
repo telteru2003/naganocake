@@ -1,13 +1,13 @@
 <% provide(:title, "商品詳細") %>
 <div class="container">
   <h2 class="mt-5 text-center">商品詳細</h2>
-    <div class="row align-items-center m-5">
-      <div class="col-lg text-center mb-5">
+    <div class="row align-items-center m-8">
+      <div class="col-lg-5 text-center mb-5">
 
         <%= image_tag @item.get_image, size: "300x250" %>
 
       </div>
-      <div class="col-lg">
+      <div class="col-lg-7">
           <table class="table">
             <tr>
               <th>商品名</th>
@@ -23,10 +23,10 @@
             </tr>
             <tr>
               <th>
-                  税込価格<br>
-                  (税抜価格)
+                  税抜価格<br>
+                  (税込価格)
               </th>
-              <td><%= (@item.price * 1.1).floor %> (<%= @item.price %>) 円</td>
+              <td><%= @item.price.to_s(:delimited) %><br> (<%= (@item.price * 1.1).floor.to_s(:delimited) %>) 円</td>
             </tr>
             <tr>
               <th>販売ステータス</th>

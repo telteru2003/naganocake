@@ -1,14 +1,10 @@
-<div class="container">
-  <div class="row">
-
 <!-- ジャンル検索 -->
-  	<%= render "public/shared/sidebar", genres: @genres %>
+<%= render "public/shared/sidebar", genres: @genres %>
+
+<div class="col-lg-1"></div>
 
 <!-- 商品一覧 -->
-    <div class="col-lg-1">
-    </div>
-
-    <div class="col-lg-9">
+<div class="col-lg-9">
 
   <% if params[:genre_id] %>
     <h2><%= @genre.name %>の商品一覧(全<%= @all_items_count %>件)</h2>

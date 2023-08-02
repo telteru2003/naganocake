@@ -32,7 +32,7 @@ class Public::SessionsController < Devise::SessionsController
       # is_deletedの値が
         # trueだった場合、サインアップ画面に遷移する処理を実行する
         # falseだった場合、createアクションを実行させる
-        　# falseの場合は何も処理をせず、trueの場合のみサインアップ画面にリダイレクトするという処理が必要になる
+        # falseの場合は何も処理をせず、trueの場合のみサインアップ画面にリダイレクトするという処理が必要になる
         flash[:alert] = "このアカウントは退会済みです。"
         redirect_to new_customer_session_path
       end

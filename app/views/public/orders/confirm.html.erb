@@ -1,10 +1,10 @@
 <div class="container">
-  <h2>注文情報確認</h2>
+  <h2 style="padding: 10px; margin: 10px;" class="font-weight-bold my-5"><span style="background-color: #EEEEEE">　注文情報確認　</span></h2>
   <div class="row">
-    <div class="col-xs-9">
-      <table class="table">
+    <div class="col-lg-7">
+      <table class="table table-bordered">
         <thead>
-          <tr>
+          <tr style="background-color: #EEEEEE">
             <th>商品名</th>
             <th>単価（税込）</th>
             <th>数量</th>
@@ -14,60 +14,64 @@
         <tbody>
           <% sum = 0 %>
           <% @cart_items.each do |cart_item| %>
-            <tr>
-              <td class="text-left">
-                <%= image_tag cart_item.item.get_image, size: "60x50" %>
-                <%= cart_item.item.name %>
-              </td>
-              <td class="text-right">
-                ¥<%= cart_item.item.with_tax_price.to_s(:delimited) %>
-              </td>
-              <td class="text-right">
-                  <%= cart_item.amount %>
-              </td>
-              <td class="text-right">
-                ¥<%= cart_item.subtotal.to_s(:delimited) %>
-              </td>
-            </tr>
+          <tr>
+            <td class="text-left">
+              <%= image_tag cart_item.item.get_image, size: "60x50" %>
+              <%= cart_item.item.name %>
+            </td>
+            <td class="text-left" style="vertical-align: middle;">
+              ¥<%= cart_item.item.with_tax_price.to_s(:delimited) %>
+            </td>
+            <td class="text-left" style="vertical-align: middle;">
+              <%= cart_item.amount %>
+            </td>
+            <td class="text-left" style="vertical-align: middle;">
+              ¥<%= cart_item.subtotal.to_s(:delimited) %>
+            </td>
+          </tr>
           <% sum += cart_item.subtotal %>
-        <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
 
-    <div class="col-xs-3 offset-md-1">
-      <table class="table">
-          <tr>
-            <th>送料</th>
-            <td class="text-right col-xs-5">¥<%= @postage %></td>
-          </tr>
-          <tr>
-            <th class="info">商品合計</th>
-            <td class="text-right">¥<%= sum.to_s(:delimited) %></td>
-          </tr>
-          <tr>
-            <th class="info">請求金額</th>
-            <td class="text-right">¥<%= (@postage + sum).to_s(:delimited) %></td>
-          </tr>
+    <div class="col-lg-3 offset-md-1">
+      <table class="table table-bordered">
+        <tr>
+          <th style="background-color: #EEEEEE">送料</th>
+          <td class="text-right col-xs-5">¥<%= @postage %></td>
+        </tr>
+        <tr>
+          <th class="info" style="background-color: #EEEEEE">商品合計</th>
+          <td class="text-right">¥<%= sum.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="info" style="background-color: #EEEEEE">請求金額</th>
+          <td class="text-right">¥<%= (@postage + sum).to_s(:delimited) %></td>
+        </tr>
       </table>
     </div>
   </div>
+</div><br>
+
+<div class="container">
   <div class="row">
-    <div class="col-xs-8">
-      <table class="table">
+    <div class="col-lg-9">
+      <table class="table" style="border-collapse: collapse; border-spacing: 0; padding: 10px;">
         <thead>
         <tr>
-          <th  class="info">支払方法</th>
+          <th class="info">支払方法</th>
           <td class="text-left">
             <%= @order.payment_method %>
           </td>
         </tr>
         <tr>
-          <th  class="info">お届け先</th>
+          <th class="info" style="vertical-align: middle;">お届け先</th>
           <td class="text-left">
-            <%= "#{@order.postal_code} #{@order.address} 　#{@order.name}" %>
+            〒<%= "#{@order.postal_code} #{@order.address}" %><br> 　<%= "#{@order.name}" %>
           </td>
         </tr>
+
         </thead>
       </table>
     </div>

@@ -4,6 +4,7 @@
         <div id="error">
           <%= render "layouts/error_message", resource: @address %>
         </div>
+        
         <%= form_with(model: @address, :url => {:controller => "public/addresses"}) do |f| %>
             <div class="addres col-xs-10">
                 <div class="form-group col-xs-12">

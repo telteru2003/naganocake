@@ -7,60 +7,73 @@
           <tr>
             <th>名前</th>
             <td class="sign-up-small-cell">(姓)</td>
-            <td><%= f.text_field :last_name, autofocus: true %></td>
+            <td><%= f.text_field :last_name, autofocus: true, class: "form-control" %></td>
             <td class="sign-up-small-cell">(名)</td>
-            <td><%= f.text_field :first_name, autofocus: true %></td>
+            <td><%= f.text_field :first_name, autofocus: true, class: "form-control" %></td>
           </tr>
           <tr>
             <th>フリガナ</th>
             <td class="sign-up-small-cell">(セイ)</td>
-            <td><%= f.text_field :kana_last_name, autofocus: true %></td>
+            <td><%= f.text_field :kana_last_name, autofocus: true, class: "form-control" %></td>
             <td class="sign-up-small-cell">(メイ)</td>
-            <td><%= f.text_field :kana_first_name, autofocus: true %></td>
+            <td><%= f.text_field :kana_first_name, autofocus: true, class: "form-control" %></td>
           </tr>
           <tr>
             <th>メールアドレス</th>
             <td class="sign-up-small-cell"></td>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email"%></td>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %></td>
           </tr>
           <tr>
           <th>郵便番号（ハイフンなし）</th>
           <td class="sign-up-small-cell"></td>
-          <td><%= f.text_field :postal_code, autofocus: true %></td>
+          <td><%= f.text_field :postal_code, autofocus: true, class: "form-control" %></td>
           </tr>
           <tr>
-            <th>住所</th>
-            <td class="sign-up-small-cell"></td>
-            <td colspan="3"><%= f.text_field :address, autofocus: true, class: "sign-up-address" %></td>
+          <th>住所</th>
+          <td class="sign-up-small-cell"></td>
+          <td colspan="3">
+          <%= f.text_field :address, autofocus: true, class: "form-control" %>
+          </td>
           </tr>
           <tr>
             <th>電話番号（ハイフンなし）</th>
             <td class="sign-up-small-cell"></td>
-            <td><%= f.text_field :phone_number, autofocus: true %></td>
+            <td><%= f.text_field :phone_number, autofocus: true, class: "form-control" %></td>
           </tr>
           <tr>
             <th>パスワード（６文字以上）</th>
             <td class="sign-up-small-cell"></td>
-            <td><%= f.password_field :password %></td>
+            <td><%= f.password_field :password, class: "form-control" %></td>
           </tr>
           <tr>
             <th>パスワード（確認用）</th>
             <td class="sign-up-small-cell"></td>
-            <td><%= f.password_field :password_confirmation, autocomplete: "current-password" %></td>
+            <td><%= f.password_field :password_confirmation, autocomplete: "current-password", class: "form-control" %></td>
+          </tr>
+          <tr height="30">
+            <th></th>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td class="sign-up-small-cell"></td>
+            <td><div class="customer-sign-up-actions">
+            <%= f.submit "新規登録", class:"btn btn-success col-xs-3 col-xs-offset-5" %>
+      </div></td>
           </tr>
         </tbody>
       </table>
       <br>
       <br>
-      <div class="customer-sign-up-actions">
-        <%= f.submit "新規登録", class:"btn btn-success col-xs-3 col-xs-offset-5" %>
-      </div>
     <% end %>
   </div>
 </div>
 <div class="container col-xs-6 col-xs-offset-2 sign-up-message">
-  <h3>既に登録済みの方</h3>
+        <h4 style="padding: 10px; margin: 10px;">
+          <span style="background-color: #EEEEEE">　既に登録済みの方　</span>
+        </h4>
   <div class="row">
-    <span class="col-xs-offset-"><%= link_to 'こちら', new_customer_session_path %>からログインしてください。</span>
+    　　　　　<span class="col-xs-offset-"><%= link_to 'こちら', new_customer_session_path %>　からログインしてください。</span>
   </div>
 </div>
