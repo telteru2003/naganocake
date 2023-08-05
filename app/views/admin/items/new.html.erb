@@ -2,8 +2,10 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1">
-      <h2>商品新規登録</h2>
+      <h2 class="font-weight-bold my-5"><span style="background-color: #EEEEEE">　商品新規登録　</span></h2>
     </div>
+
+
   </div>
   <div class="row">
     <div class="col-sm-10 px-sm-0 mx-auto mb-5">
@@ -51,9 +53,8 @@
         </div>
         </tr>
         <tr>
-        <div class="form-action">
-          <th><%= f.submit "新規登録", class:"btn btn-success" %></th>
-        </div>
+          <th></th>
+          <td><div class="form-action text-center"><%= f.submit "新規登録", class: "btn btn-success" %></div></td>
         </tr>
       <% end %>
       </table>

@@ -23,6 +23,11 @@ class Admin::CustomersController < ApplicationController
     end
   end
 
+  def history
+    @customer = Customer.find(params[:id])
+    @orders = Order.page(params[:page]).per(10)
+  end
+
   private
    def customer_params
      params.require(:customer).permit(

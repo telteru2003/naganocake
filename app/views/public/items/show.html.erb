@@ -10,20 +10,25 @@
 <div class="col-lg-5">
   <h3><%= @item.name %></h3>
   <p><%= @item.introduction %></p>
+
   <% if @item.is_sold == true %>
-  <h4>¥ <%= @item.with_tax_price.to_s(:delimited) %></h4> (税込)<br><br>
+    <h4>¥ <%= @item.with_tax_price.to_s(:delimited) %></h4> (税込)<br><br>
 
-  <div class="row">
-    <div class="col-md-4" class="d-flex align-items-center">
-      <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
-        <%= f.hidden_field :item_id, value: @item.id %>
-        <%= f.select :amount, (1..10).to_a, { include_blank: "個数選択" }, class: "form-control rounded-3" %>
-    </div>
-    <div class="col-md-6">
-        <%= f.submit "カートに入れる", class: "btn btn-success ml-2" %>
-      <% end %>
+    <div class="row">
+      <div class="col-md-4" class="d-flex align-items-center">
+        <% if customer_signed_in? %>
+          <%= form_with model:@cart_item, url: cart_items_path, method: :post do |f| %>
+            <%= f.hidden_field :item_id, value: @item.id %>
+            <%= f.select :amount, (1..10).to_a, { include_blank: "個数選択" }, class: "form-control rounded-3" %>
+        </div>
 
-  <% else %>
+        <div class="col-md-6">
+            <%= f.hidden_field :customer_id, value: current_customer.id %>
+            <%= f.submit "カートに入れる", class: "btn btn-success ml-2" %>
+          <% end %>
+        <% end %>
+
+    <% else %>
     <h4>売り切れ</h4>
   <% end %>
     </div>

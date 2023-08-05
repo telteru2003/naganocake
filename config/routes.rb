@@ -9,11 +9,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	get '/search'=>'search#search'
-    resources :customers,only: [:index,:show,:edit,:update]
+    resources :customers,only: [:index,:show,:edit,:update] do
+      get 'history', on: :member
+    end
   	resources :items,only: [:index,:new,:create,:show,:edit,:update,]
   	resources :genres,only: [:index,:create,:edit,:update, :show]
   	resources :orders,only: [:index,:show,:update] do
   	  member do
+  	   # get 'history' => 'admin/customers/history'
         get :current_index
         resource :order_details,only: [:update]
       end

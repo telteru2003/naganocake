@@ -1,12 +1,14 @@
-<% provide(:title, "注文履歴一覧") %>
-<div calss="row">
-  <div class="col-xs-12">
-    <h2>注文履歴一覧</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+        <h2 style="padding: 10px; margin: 10px;" class="font-weight-bold my-5"><span style="background-color: #EEEEEE">　注文履歴一覧　</span></h2>
+
       <% if @orders.present? %>
         <table class="table table-hover table-bordered table-condensed">
           <thead>
             <tr>
-              <th><i class="fas fa-calendar-day"></i>　注文日</th>
+              <tr style="background-color: #EEEEEE;">
+              <th>注文日</th>
               <th>配送先</th>
               <th>注文商品</th>
               <th>支払金額</th>
@@ -17,27 +19,27 @@
           <tbody>
             <% @orders.each do |order| %>
               <tr>
-                <td>
+                <td style="vertical-align: middle;">
     		          <%= order.created_at.strftime('%Y/%m/%d') %>
     		        </td>
-    		        <td>
-    		          <%= order.postal_code %><br>
+                <td>
+    		          〒<%= order.postal_code %><br>
     		          <%= order.address %><br>
     		          <%= order.name %>
     		        </td>
-    		        <td>
+                <td style="vertical-align: middle;">
     		          <% order.order_details.each do |order_detail| %>
     		          	<%= order_detail.item.name %><br>
     		          <% end %>
     		        </td>
-    		        <td>
+                <td style="vertical-align: middle;">
     		          <%= order.total_payment.to_s(:delimited) %>円
     		        </td>
-    		        <td>
+                <td style="vertical-align: middle;">
     		          <%= order.status %>
     		        </td>
-         	      <td>
-       	          <%= link_to "注文詳細", order_path(order), class: "btn btn-success" %>
+                <td style="vertical-align: middle;" align="center">
+       	          <%= link_to "表示する", order_path(order), class:"btn btn-primary" %>
        	        </td>
               </tr>
               <% end %>
