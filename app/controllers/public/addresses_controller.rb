@@ -14,7 +14,8 @@ class Public::AddressesController < ApplicationController
 	  	 flash.now[:notice] = "新規配送先を登録しました"
 	  redirect_to addresses_path
     else
-    render :"orders/new"
+    flash[:notice] = "項目を正しく記入してください"
+			redirect_to request.referrer
     end
   end
 
